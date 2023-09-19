@@ -34,7 +34,7 @@ function startApp(name){
  * @returns {void}
  */
 function onDataReceived(text) {
-  const texty = text.split(" ")[0];
+  const texty = text.split(" ")[0].trim();
   if (text === 'quit\n' || text === 'exit\n') {
     quit();
   }
