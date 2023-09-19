@@ -34,11 +34,12 @@ function startApp(name){
  * @returns {void}
  */
 function onDataReceived(text) {
+  const texty = text.split(" ")[0];
   if (text === 'quit\n' || text === 'exit\n') {
     quit();
   }
-  else if(text === 'hello\n'){
-    hello();
+  else if(texty === 'hello'){
+    hello(text.replace("\n",""));
   }
   else if (text === 'help\n'){
     help();
@@ -67,8 +68,8 @@ function unknownCommand(c){
  *
  * @returns {void}
  */
-function hello(){
-  console.log('hello!')
+function hello(text){
+  console.log(text + "!")
 }
 //this function will display for the user the commands that the program offers.
 function help(){
