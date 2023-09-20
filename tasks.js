@@ -36,7 +36,7 @@ function startApp(name){
 function onDataReceived(text) {
   const texty = text.split(" ")[0].trim();
   const addText = text.slice(4,text.length);
-  const removeText = text.slice(7,text.length);
+  const removeText = parseInt(text.slice(7,text.length));
   if (text === 'quit\n' || text === 'exit\n') {
     quit();
   }
@@ -47,13 +47,16 @@ function onDataReceived(text) {
     remove();
   }
   else if(texty === 'remove'){
+    if(removeText > tasks.length)
+    console.log("There is no number " + removeText)
+  else
     removeNumber(parseInt(removeText-1));
     
   }
 
   else if(texty === 'add'){
     if(addText.trim() === "")
-    console.log("empty is not acepted")
+    console.log("empty is not acepted");
   else
     add(addText);
   }
