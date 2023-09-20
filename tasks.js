@@ -1,4 +1,4 @@
-const tasks = ["ahmad","jana","ali"];
+const tasks = ["[ ] ahmad","[ ] jana","[ ] ali"];
 /**
  * Starts the application
  * This is the function that is run when the app starts
@@ -37,6 +37,9 @@ function onDataReceived(text) {
   const texty = text.split(" ")[0].trim();
   const addText = text.slice(4,text.length);
   const removeText = parseInt(text.slice(7,text.length));
+  const checkText = text.slice(4,5);
+  const editText = parseInt(text.slice(5,6));
+  const textEdit = text.slice (7,text.length);
   if (text === 'quit\n' || text === 'exit\n') {
     quit();
   }
@@ -60,6 +63,18 @@ function onDataReceived(text) {
   else
     add(addText);
   }
+
+
+  else if(texty == 'edit'){
+    if(checkText.trim() == "")
+    console.log("You can not edit an empty")
+    if(editText > tasks.length)
+    console.log("There is no number " + editText)
+  else
+    tasks[editText-1] = textEdit.replace("\n","");
+  }
+
+
   else if (text === 'help\n'){
     help();
   }
@@ -111,7 +126,7 @@ function list(){
   }
 }
 function add(addText){
-  tasks.push(addText.replace("\n",""));
+  tasks.push("[ ] " + addText.replace("\n",""));
 }
 //this function removes the last element of the array
 function remove(){
@@ -124,6 +139,7 @@ function removeNumber(num){
 else
   tasks.splice((num),(num));
 }
+
 
 /**
  * Exits the application
