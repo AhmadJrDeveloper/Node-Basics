@@ -47,7 +47,8 @@ function onDataReceived(text) {
     remove();
   }
   else if(texty === 'remove'){
-    removeNumber(removeText);
+    removeNumber(parseInt(removeText-1));
+    
   }
 
   else if(texty === 'add'){
@@ -113,9 +114,12 @@ function add(addText){
 function remove(){
   tasks.pop();
 }
-//this function removes the fist element of the array
+//this function removes the specified element of the array
 function removeNumber(num){
-  tasks.splice((num-1),(num));
+  if(num == 0)
+  tasks.shift();
+else
+  tasks.splice((num),(num));
 }
 
 /**
