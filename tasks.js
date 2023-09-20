@@ -42,6 +42,15 @@ function onDataReceived(text) {
   else if(texty === 'hello'){
     hello(text.replace("\n",""));
   }
+  else if(text === 'remove\n'){
+    remove();
+  }
+  else if(text === 'remove1\n'){
+    remove1();
+  }
+  else if(text === 'remove2\n'){
+    remove2();
+  }
   else if(texty === 'add'){
     if(addText.trim() === "")
     console.log("empty is not acepted")
@@ -83,7 +92,14 @@ function hello(text){
 }
 //this function will display for the user the commands that the program offers.
 function help(){
-  console.log("These are the available commands quit-exit-hello")
+  console.log("These are the available commands:")
+  console.log("quit or exit");
+  console.log("hello");
+  console.log("help");
+  console.log("add");
+  console.log("remove");
+  console.log("remove1");
+  console.log("remove2");
 }
 function list(){
   console.log("Tasks")
@@ -94,6 +110,20 @@ function list(){
 function add(addText){
   tasks.push(addText.replace("\n",""));
 }
+//this function removes the last element of the array
+function remove(){
+  tasks.pop();
+}
+//this function removes the fist element of the array
+function remove1(){
+  tasks.shift();
+}
+//this function removes the second element of the array ussing the splice method to target the array index between 1 and 1
+//which is the second element of the array
+function remove2(){
+  tasks.splice(1,1);
+}
+
 
 
 /**
