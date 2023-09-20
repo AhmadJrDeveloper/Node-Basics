@@ -1,4 +1,4 @@
-
+const tasks = ["ahmad","jana","ali"];
 /**
  * Starts the application
  * This is the function that is run when the app starts
@@ -35,14 +35,24 @@ function startApp(name){
  */
 function onDataReceived(text) {
   const texty = text.split(" ")[0].trim();
+  const addText = text.slice(4,text.length);
   if (text === 'quit\n' || text === 'exit\n') {
     quit();
   }
   else if(texty === 'hello'){
     hello(text.replace("\n",""));
   }
+  else if(texty === 'add'){
+    if(addText.trim() === "")
+    console.log("empty is not acepted")
+  else
+    add(addText);
+  }
   else if (text === 'help\n'){
     help();
+  }
+  else if (text === 'list\n'){
+    list();
   }
 
   else{
@@ -74,6 +84,15 @@ function hello(text){
 //this function will display for the user the commands that the program offers.
 function help(){
   console.log("These are the available commands quit-exit-hello")
+}
+function list(){
+  console.log("Tasks")
+  for(let i = 0 ; i < tasks.length ; i++){
+    console.log(`${i+1}. ${tasks[i]}`);
+  }
+}
+function add(addText){
+  tasks.push(addText.replace("\n",""));
 }
 
 
