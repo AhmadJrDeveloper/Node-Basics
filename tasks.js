@@ -36,6 +36,7 @@ function startApp(name){
 function onDataReceived(text) {
   const texty = text.split(" ")[0].trim();
   const addText = text.slice(4,text.length);
+  const removeText = text.slice(7,text.length);
   if (text === 'quit\n' || text === 'exit\n') {
     quit();
   }
@@ -45,12 +46,10 @@ function onDataReceived(text) {
   else if(text === 'remove\n'){
     remove();
   }
-  else if(text === 'remove1\n'){
-    remove1();
+  else if(texty === 'remove'){
+    removeNumber(removeText);
   }
-  else if(text === 'remove2\n'){
-    remove2();
-  }
+
   else if(texty === 'add'){
     if(addText.trim() === "")
     console.log("empty is not acepted")
@@ -115,16 +114,9 @@ function remove(){
   tasks.pop();
 }
 //this function removes the fist element of the array
-function remove1(){
-  tasks.shift();
+function removeNumber(num){
+  tasks.splice((num-1),(num));
 }
-//this function removes the second element of the array ussing the splice method to target the array index between 1 and 1
-//which is the second element of the array
-function remove2(){
-  tasks.splice(1,1);
-}
-
-
 
 /**
  * Exits the application
