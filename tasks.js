@@ -1,4 +1,6 @@
-const tasks = ["[ ] ahmad","[ ] jana","[ ] ali"];
+const tasks = [];
+const fs = require("fs");
+
 /**
  * Starts the application
  * This is the function that is run when the app starts
@@ -9,6 +11,22 @@ const tasks = ["[ ] ahmad","[ ] jana","[ ] ali"];
  * @param  {string} name the name of the app
  * @returns {void}
  */
+fs.readFile("./DataBase.json", "utf8", (err, jsonString) => {
+  if (err) {
+    console.log("Error reading file from disk:", err);
+    return;
+  }
+  try {
+    // const Tasks = JSON.parse(jsonString);
+    const Tasks = JSON.parse(jsonString);
+    
+    for(let i = 0 ; i < Tasks.length ; i++){
+      tasks.push(Tasks[i]);
+    }
+  } catch (err) {
+    console.log("Error parsing JSON string:", err);
+  }
+}); 
 function startApp(name){
   process.stdin.resume();
   process.stdin.setEncoding('utf8');
@@ -174,6 +192,14 @@ else
  * @returns {void}
  */
 function quit(){
+  const jsonString = JSON.stringify(tasks)
+  fs.writeFileSync('./DataBase.json', jsonString, err => {
+    if (err) {
+        console.log('Error writing file', err)
+    } else {
+        console.log('Successfully wrote file')
+    }
+})
   console.log('Quitting now, goodbye!')
   process.exit();
 }
