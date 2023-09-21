@@ -37,9 +37,9 @@ function onDataReceived(text) {
   const texty = text.split(" ")[0].trim();
   const addText = text.slice(4,text.length);
   const removeText = parseInt(text.slice(7,text.length));
-  const checkText = text.slice(4,5);
-  const editText = parseInt(text.slice(5,6));
-  const textEdit = text.slice (7,text.length);
+  const editText = text.split(" ");
+  const checkTask = text.slice(6,7);
+  const unCheckTask = text.slice(8,9);
   if (text === 'quit\n' || text === 'exit\n') {
     quit();
   }
@@ -66,12 +66,32 @@ function onDataReceived(text) {
 
 
   else if(texty == 'edit'){
-    if(checkText.trim() == "")
-    console.log("You can not edit an empty")
-    if(editText > tasks.length)
-    console.log("There is no number " + editText)
-  else
-    tasks[editText-1] = textEdit.replace("\n","");
+    if(text.slice(5,text.length).trim() === ""){
+      console.log("You can not edit an empty")
+    }
+    else if(isNaN(editText[1])){
+      tasks[tasks.length-1] = "[ ] " + text.slice(5,text.length).replace("\n","");
+    }
+    else if(parseInt(editText[1]) > tasks.length)
+      console.log("There is no number " + editText[1])
+    else if (editText[1] !==NaN)
+      tasks[parseInt(editText[1]-1)] = "[ ] " + text.slice(7,text.length).replace("\n","");
+  }
+  
+  else if(texty == 'check'){
+    if(text.slice(6,text.length).trim() === ""){
+      console.log("You can not check an empty")
+    }
+    else if(tasks[checkTask - 1].startsWith("[ ]"))
+    tasks[checkTask - 1] = "[✓]" + tasks[checkTask - 1].slice(3);
+  }
+
+  else if(texty == 'uncheck'){
+    if(text.slice(8,text.length).trim() === ""){
+      console.log("You can not uncheck an empty")
+    }
+    else if (tasks[unCheckTask - 1].startsWith("[✓]"))
+    tasks[unCheckTask - 1] = "[ ]" + tasks[unCheckTask - 1].slice(3);
   }
 
 
@@ -116,8 +136,13 @@ function help(){
   console.log("help");
   console.log("add");
   console.log("remove");
-  console.log("remove1");
-  console.log("remove2");
+  console.log("remove (number)");
+  console.log("edit");
+  console.log("edit (number)");
+  console.log("check (number)");
+  console.log("uncheck (number)");
+
+
 }
 function list(){
   console.log("Tasks")
@@ -139,6 +164,8 @@ function removeNumber(num){
 else
   tasks.splice((num),(num));
 }
+
+
 
 
 /**
